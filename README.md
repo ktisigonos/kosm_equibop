@@ -16,9 +16,9 @@ changed QuickCSS at once:
 }
 ```
 
-`from(theme)` sets the backgrounds from black (white in light mode) with the theme's
-background alpha and its surface and state steps, the text from white, links and the accent
-cyan, and outlines the theme's `line.border` of cyan. The font is left alone.
+`from(theme)` sets the backgrounds from the theme's background role with its background alpha
+and its surface and state steps, the text from the foreground role, links and the accent from
+their roles, and outlines the theme's `line.border` of the accent. The font is left alone.
 
 ## Fields
 

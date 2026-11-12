@@ -39,14 +39,13 @@ pub const Colors = struct {
     outline: ?kosm.Color = null,
 };
 
-/// Colors from the theme: backgrounds from black (white in light mode) with the theme's
-/// background alpha and its surface and state steps, text from white, links and the accent
-/// cyan, outlines the theme's `line.border` of cyan.
+/// Colors from the theme: backgrounds from the background role with the theme's background
+/// alpha and its surface and state steps, text from the foreground role, links and the accent
+/// from their roles, outlines the theme's `line.border` of the accent.
 pub fn from(theme: kosm.Theme) App {
-    const palette = theme.palette;
     const variations = theme.variations;
-    const foreground = if (theme.mode == .dark) palette.white else palette.black;
-    const background = if (theme.mode == .dark) palette.black else palette.white;
+    const foreground = theme.roles.foreground;
+    const background = theme.roles.background;
     return .{ .colors = .{
         .background = theme.asBackground(background),
         .background_alt = theme.asBackground(variations.surface.raised.apply(background)),
@@ -54,9 +53,9 @@ pub fn from(theme: kosm.Theme) App {
         .text = foreground,
         .text_highlight = variations.emphasis.strong.apply(foreground),
         .placeholder = variations.state.placeholder.apply(foreground),
-        .link = palette.cyan,
-        .accent = palette.cyan,
-        .outline = variations.line.border.apply(palette.cyan),
+        .link = theme.roles.link,
+        .accent = theme.roles.accent,
+        .outline = variations.line.border.apply(theme.roles.accent),
     } };
 }
 
@@ -128,7 +127,7 @@ test "the colors and font are a block after the user's own CSS, which is kept" {
     var fixture: Fixture = undefined;
     try fixture.init(user_css);
     defer fixture.deinit();
-    var theme = kosm.Theme.from(.{ .black = kosm.hex("041c26"), .white = kosm.hex("a3c5cc"), .cyan = kosm.hex("2d8699") }, .dark);
+    var theme = kosm.Theme.from(.{ .palette = .{ .black = kosm.hex("041c26"), .white = kosm.hex("a3c5cc"), .cyan = kosm.hex("2d8699") }, .mode = .dark });
     theme.background_alpha = 0.5;
     var app = from(theme);
     app.font = "Maple Mono Normal NFP";
