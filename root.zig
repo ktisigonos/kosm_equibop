@@ -1,8 +1,8 @@
-//! Equibop: the theme's colors and font as custom properties in QuickCSS, for Discord themes.
+//! Equibop: a local theme recoloring Material Discord with the theme's colors, font and rounding.
 
 const std = @import("std");
 
-/// The QuickCSS block; build one with `from`.
+/// The theme; build one with `from`.
 pub const App = @import("App.zig");
 /// Colors from the theme.
 pub const from = App.from;

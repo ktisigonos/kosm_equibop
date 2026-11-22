@@ -18,6 +18,7 @@
         "build.zig.zon",
         "root.zig",
         "App.zig",
+        "theme.css",
         "README.md",
     },
 }

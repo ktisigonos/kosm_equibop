@@ -1,0 +1,78 @@
+/* kosm's Equibop theme, which kosm writes: change its values in your kosmos, not here.
+   It recolors Material Discord, so keep that theme on among Equibop's online themes and turn
+   this one on among its local themes. Your QuickCSS still wins over it. */
+
+:root, .theme-dark, .theme-light {
+  --kosm-background: {kosm.colors.background};
+  --kosm-background-alt: {kosm.colors.background_alt};
+  --kosm-background-highlight: {kosm.colors.background_highlight};
+  --kosm-text: {kosm.colors.text};
+  --kosm-text-highlight: {kosm.colors.text_highlight};
+  --kosm-placeholder: {kosm.colors.placeholder};
+  --kosm-link: {kosm.colors.link};
+  --kosm-accent: {kosm.colors.accent};
+  --kosm-accent-text: {kosm.colors.accent_text};
+  --kosm-outline: {kosm.colors.outline};
+  --kosm-font: "{kosm.font}";
+
+  --app-font: var(--kosm-font);
+  --app-bg: var(--kosm-background);
+  --main-color: var(--kosm-background);
+  --main-alt: var(--kosm-background-alt);
+  --chat-color: var(--kosm-background);
+  --status-picker-color: var(--kosm-background);
+  --sidebar-panel-color: var(--kosm-background-alt);
+  --profile-body-background-color: var(--kosm-background-alt);
+
+  --accent-hsl: {kosm.accent_hsl};
+  --accent-hsl--material-you: var(--accent-hsl);
+  --accent-text-color: var(--kosm-accent-text);
+  --accent-text-color--material-you: var(--kosm-accent-text);
+  --text-brand: var(--kosm-accent);
+  --text-link: var(--kosm-link);
+  --text-normal: var(--kosm-text);
+  --header-secondary: var(--kosm-text-highlight);
+  --interactive-muted: var(--kosm-placeholder);
+  --text-disabled: var(--kosm-placeholder);
+
+  --message-color: var(--kosm-background-alt);
+  --message-color-hover: var(--kosm-background-highlight);
+  --message-color-alt: var(--kosm-background-alt);
+  --attachment-color: var(--kosm-background);
+  --main-textarea-color: var(--kosm-background-alt);
+  --main-textarea-inner-color: var(--kosm-background);
+  --main-textarea-button-color: var(--kosm-text);
+  --main-textarea-border: var(--kosm-outline);
+
+  --popout-color: var(--kosm-background-alt);
+  --popout-color-alt: var(--kosm-background);
+  --popout-header-border: var(--kosm-outline);
+  --separator-color: var(--kosm-outline);
+  --menu-item-hover: var(--kosm-background-highlight);
+  --menu-item-text-color: var(--kosm-text);
+  --tooltip-color: var(--kosm-background-alt);
+  --tooltip-border-color: var(--kosm-outline);
+  --tooltip-text-color: var(--kosm-text);
+
+  --card-color-filled: var(--kosm-background-alt);
+  --card-color-hover: var(--kosm-background-highlight);
+  --card-color-active: var(--kosm-background-highlight);
+  --card-color-alt: var(--kosm-background);
+  --card-color-alt-hover: var(--kosm-background-highlight);
+  --card-border-color: var(--kosm-outline);
+  --card-header-text-color: var(--kosm-text-highlight);
+
+  --button-link-color: var(--kosm-text);
+  --button-link-text-color: var(--kosm-link);
+  --button-border-color: var(--kosm-outline);
+  --switch-knob-color: var(--kosm-text);
+  --switch-slider-color: var(--kosm-background-alt);
+
+  --input-color: var(--kosm-background-alt);
+  --input-color-alt: var(--kosm-background);
+  --input-border-color: var(--kosm-outline);
+  --input-text-color: var(--kosm-text);
+  --input-placeholder-color: var(--kosm-placeholder);
+
+  --scrollbar-color: var(--kosm-text);
+{kosm.rounding_properties}}
