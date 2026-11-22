@@ -22,7 +22,7 @@ rounding: ?u32 = null,
 
 /// The colors the theme gives Material Discord, named for what they paint.
 pub const Colors = struct {
-    /// The app and chat background.
+    /// The window's background, painted once under the channel list and chat, which are clear.
     background: kosm.Color,
     /// Side panels, messages, popouts, cards and inputs.
     background_alt: kosm.Color,
@@ -179,7 +179,7 @@ test "the theme sets the colors and font and points Material Discord's variables
     try expectContains(written, "  --kosm-background: #041c2680;\n");
     try expectContains(written, "  --kosm-text: #a3c5ccff;\n");
     try expectContains(written, "  --kosm-font: \"Maple Mono Normal NFP\";\n");
-    try expectContains(written, "  --main-color: var(--kosm-background);\n");
+    try expectContains(written, "  --app-bg: var(--kosm-background);\n  --main-color: transparent;\n");
     try expectContains(written, "  --accent-hsl: 190.6, 54.5%, 38.8%;\n");
     try testing.expect(std.mem.indexOf(u8, written, "-radius:") == null);
     try testing.expect(std.mem.endsWith(u8, written, "var(--kosm-text);\n}\n"));

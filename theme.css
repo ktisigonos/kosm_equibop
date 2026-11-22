@@ -16,11 +16,15 @@
   --kosm-font: "{kosm.font}";
 
   --app-font: var(--kosm-font);
+
+  /* Material Discord stacks the app, channel list and chat backgrounds, so a translucent color
+     in each would add up to near opaque: the app's background is painted once, the rest clear. */
   --app-bg: var(--kosm-background);
-  --main-color: var(--kosm-background);
-  --main-alt: var(--kosm-background-alt);
-  --chat-color: var(--kosm-background);
-  --status-picker-color: var(--kosm-background);
+  --main-color: transparent;
+  --main-alt: transparent;
+  --chat-color: transparent;
+  --slider-grabber-background: var(--kosm-background-alt);
+  --status-picker-color: var(--kosm-background-alt);
   --sidebar-panel-color: var(--kosm-background-alt);
   --profile-body-background-color: var(--kosm-background-alt);
 

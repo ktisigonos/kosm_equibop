@@ -25,8 +25,8 @@ their roles, text on the accent from the opaque background role, and outlines th
 |---|---|---|
 | `directory` | | the Flatpak's `~/.var/app/org.equicord.equibop/config/equibop`; a native Equibop uses `~/.config/equibop` |
 | `format` | | the CSS adapter's: `#rrggbbaa` |
-| `colors.background` | `--app-bg`, `--main-color`, `--chat-color` and the other plain backgrounds | |
-| `colors.background_alt` | `--main-alt`, side panels, messages, popouts, cards, inputs, tooltips | |
+| `colors.background` | `--app-bg`, the window's background, painted once: Material Discord's channel list and chat backgrounds (`--main-color`, `--main-alt`, `--chat-color`) are made clear, as it stacks them | |
+| `colors.background_alt` | side panels, the status picker, messages, popouts, cards, inputs, tooltips | |
 | `colors.background_highlight` | hovered and selected messages, cards and menu items | |
 | `colors.text` | `--text-normal`, input and menu text, the scrollbar | |
 | `colors.text_highlight` | headings and card headers | |
