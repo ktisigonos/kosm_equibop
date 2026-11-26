@@ -7,7 +7,9 @@ and rounding.
 The app writes the whole file `<directory>/themes/kosm.theme.css`, so do not edit it. Once, in
 Equibop's settings: keep Material Discord on among the online themes
 (`https://capnkitten.github.io/BetterDiscord/Themes/Material-Discord/css/source.css`), and turn
-`kosm.theme.css` on among the local themes. Equibop applies a changed theme at once.
+`kosm.theme.css` on among the local themes. Equibop applies a changed theme at once. `kosm doctor`
+checks that Equibop is installed, natively or as a Flatpak, and that `kosm.theme.css` is on in
+`<directory>/settings/settings.json`.
 
 Equibop applies its themes in this order, the later winning: online themes, local themes,
 QuickCSS. So your QuickCSS still overrides the theme; delete the variables you set there that the

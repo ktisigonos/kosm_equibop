@@ -77,9 +77,25 @@ const Values = struct {
     rounding_properties: kosm.Raw,
 };
 
+/// What `kosm doctor` checks: Equibop installed natively or as a Flatpak, and
+/// `kosm.theme.css` turned on among the local themes, which Equibop lists in its settings.
+pub fn checkup(self: App) kosm.Checkup {
+    return .{
+        .program = .{ .command = "equibop", .flatpak = "org.equicord.equibop" },
+        .includes = kosm.keep(kosm.Checkup.Include, &.{.{
+            .file = kosm.keepPrint("{s}/settings/settings.json", .{self.directory}),
+            .line = "\"" ++ theme_file ++ "\"",
+            .matches = &.{"\"" ++ theme_file ++ "\","},
+        }}),
+    };
+}
+
+/// The local theme the app writes in `themes/`, by the name Equibop's settings list it under.
+const theme_file = "kosm.theme.css";
+
 /// Writes `themes/kosm.theme.css` in `directory`.
 pub fn apply(self: App, output: *kosm.Output) !void {
-    const file = try std.mem.concat(output.allocator, u8, &.{ self.directory, "/themes/kosm.theme.css" });
+    const file = try std.mem.concat(output.allocator, u8, &.{ self.directory, "/themes/" ++ theme_file });
     if (std.mem.indexOfAny(u8, self.font, "\"\\\n") != null)
         return output.fail(file, "font '{s}' holds a quote, backslash or line break, which a CSS string would need escaped", .{self.font});
     const values: Values = .{
@@ -207,4 +223,13 @@ test "a font holding a quote fails instead of writing broken CSS" {
     app.font = "Maple \"Mono\"";
     try testing.expectError(error.AppFailed, app.apply(&fixture.output));
     try testing.expectEqual(0, fixture.plan.files.items.len);
+}
+
+test "checkup asks for Equibop either way, and the theme turned on in its settings" {
+    const given = (App{ .colors = undefined }).checkup();
+    try testing.expectEqualStrings("org.equicord.equibop", given.program.?.flatpak.?);
+    try testing.expectEqualStrings("~/.var/app/org.equicord.equibop/config/equibop/settings/settings.json", given.includes[0].file);
+    try testing.expect(given.includes[0].isIn("    \"enabledThemes\": [\n        \"a.css\",\n        \"kosm.theme.css\"\n    ],\n"));
+    try testing.expect(given.includes[0].isIn("        \"kosm.theme.css\",\n"));
+    try testing.expect(!given.includes[0].isIn("        \"kosm.theme.css.bak\"\n"));
 }
