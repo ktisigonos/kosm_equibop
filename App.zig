@@ -77,11 +77,13 @@ const Values = struct {
     rounding_properties: kosm.Raw,
 };
 
-/// What `kosm doctor` checks: Equibop installed natively or as a Flatpak, and
+/// What `kosm doctor` checks: Equibop installed the way `directory` assumes, as its Flatpak
+/// when `directory` is in the Flatpak's folder, else as the `equibop` command; and
 /// `kosm.theme.css` turned on among the local themes, which Equibop lists in its settings.
 pub fn checkup(self: App) kosm.Checkup {
+    const flatpak = std.mem.startsWith(u8, self.directory, flatpak_folder);
     return .{
-        .program = .{ .command = "equibop", .flatpak = "org.equicord.equibop" },
+        .program = if (flatpak) .{ .flatpak = flatpak_id } else .{ .command = "equibop" },
         .includes = kosm.keep(kosm.Checkup.Include, &.{.{
             .file = kosm.keepPrint("{s}/settings/settings.json", .{self.directory}),
             .line = "\"" ++ theme_file ++ "\"",
@@ -89,6 +91,10 @@ pub fn checkup(self: App) kosm.Checkup {
         }}),
     };
 }
+
+/// The Flatpak's app id, and the folder it keeps its files in.
+const flatpak_id = "org.equicord.equibop";
+const flatpak_folder = "~/.var/app/" ++ flatpak_id ++ "/";
 
 /// The local theme the app writes in `themes/`, by the name Equibop's settings list it under.
 const theme_file = "kosm.theme.css";
@@ -225,9 +231,11 @@ test "a font holding a quote fails instead of writing broken CSS" {
     try testing.expectEqual(0, fixture.plan.files.items.len);
 }
 
-test "checkup asks for Equibop either way, and the theme turned on in its settings" {
+test "checkup asks for the Flatpak or the command, whichever directory is written for, and the theme turned on" {
     const given = (App{ .colors = undefined }).checkup();
     try testing.expectEqualStrings("org.equicord.equibop", given.program.?.flatpak.?);
+    try testing.expectEqual(null, given.program.?.command);
+    try testing.expectEqualStrings("equibop", (App{ .directory = "~/.config/equibop", .colors = undefined }).checkup().program.?.command.?);
     try testing.expectEqualStrings("~/.var/app/org.equicord.equibop/config/equibop/settings/settings.json", given.includes[0].file);
     try testing.expect(given.includes[0].isIn("    \"enabledThemes\": [\n        \"a.css\",\n        \"kosm.theme.css\"\n    ],\n"));
     try testing.expect(given.includes[0].isIn("        \"kosm.theme.css\",\n"));
